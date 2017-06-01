@@ -11,8 +11,8 @@ namespace API.Controllers
         [Route("Events")]
         public IHttpActionResult Get()
         {
-            var dataContext = new DataContext();
-            return Ok(dataContext.Events.ToList());
+            using (var dataContext = new DataContext())
+                return Ok(dataContext.Events.ToList());
         }
     }
 }

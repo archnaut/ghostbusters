@@ -33,7 +33,8 @@ namespace Tests.Acceptance
             var startDate = _parser.Parse(row["Event Start Date"]);
             var endDate = _parser.Parse(row["Event End Date"]);
 
-            _expected = new Event {
+            _expected = new Event
+            {
                 Id = int.Parse(row["ID"]),
                 Name = row["Name"],
                 OnSaleDate = onSaleDate.ToTime(),
@@ -42,7 +43,7 @@ namespace Tests.Acceptance
                 EndDate = endDate.ToTime()
             };
 
-            using(var context = new DataContext())
+            using (var context = new DataContext())
             {
                 context.Events.Add(_expected);
                 context.SaveChanges();
@@ -60,18 +61,18 @@ namespace Tests.Acceptance
                 _response = client.GetAsync(uri).Result;
             }
         }
-        
+
         [Then(@"the response status code is (.*)")]
-        public void ThenTheResponseStatusCodeIs(int p0)
+        public void ThenTheResponseStatusCodeIs(int statusCode)
         {
-            Assert.Equal(HttpStatusCode.OK, _response.StatusCode);
+            Assert.Equal((HttpStatusCode) statusCode, _response.StatusCode);
         }
-        
-        [Then(@"the response body contains")]
-        public void ThenTheResponseBodyContains()
+
+        [Then(@"the response body contains the event")]
+        public void ThenTheResponseBodyContainsTheEvent()
         {
             var actual = JsonConvert.DeserializeObject<Event[]>(_response.Content.ReadAsStringAsync().Result).Single();
-            
+
             Assert.Equal(_expected.Id, actual.Id);
             Assert.Equal(_expected.Name, actual.Name);
             Assert.Equal(_expected.OnSaleDate.ToString("s"), actual.OnSaleDate.ToString("s"));
@@ -84,7 +85,7 @@ namespace Tests.Acceptance
         {
             using (var context = new DataContext())
             {
-                context.Database.ExecuteSqlCommand("DELETE FROM Events");
+                context.Database.ExecuteSqlCommand("DELETE FROM Events DBCC CHECKIDENT('Events', RESEED, 1)");
             }
         }
     }

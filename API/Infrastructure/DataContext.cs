@@ -1,10 +1,12 @@
 ﻿using System.Data.Entity;
 using API.Domain;
+using Ninject;
 
 namespace API.Infrastructure
 {
     public class DataContext : DbContext
     {
+        [Inject]
         public DataContext() : base("EventTickets")
         {
             

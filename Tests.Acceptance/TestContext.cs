@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using API.Infrastructure;
 using TechTalk.SpecFlow;
 
 namespace Tests.Acceptance
@@ -85,6 +86,12 @@ namespace Tests.Acceptance
         private static bool IsSolutionDirectory(FileInfo file)
         {
             return file.Extension.Equals(".sln", StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        private static void PrepareDb()
+        {
+            using(var context = new DataContext())
+                new DataInitializer().InitializeDatabase(context);
         }
     }
 }

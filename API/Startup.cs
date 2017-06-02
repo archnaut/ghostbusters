@@ -6,6 +6,7 @@ using API.Infrastructure;
 using JetBrains.Annotations;
 using Microsoft.Owin;
 using Ninject;
+using Ninject.Web.Common;
 using Ninject.Web.Common.OwinHost;
 using Ninject.Web.WebApi.OwinHost;
 using Owin;
@@ -33,8 +34,8 @@ namespace API
             var kernel = new StandardKernel(); 
             kernel.Load(Assembly.GetExecutingAssembly());
 
-            kernel.Bind<DbContext>().To<DataContext>();
-            kernel.Bind<IRepository>().To<Repository>();
+            kernel.Bind<DbContext>().To<DataContext>().InRequestScope();
+            kernel.Bind<IRepository>().To<Repository>().InRequestScope();
 
             return kernel;
         }

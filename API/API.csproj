@@ -159,14 +159,32 @@
     <Compile Include="Domain\Event.cs" />
     <Compile Include="Domain\IUnitOfWork.cs" />
     <Compile Include="Domain\IRepository.cs" />
+    <Compile Include="Domain\Ticket.cs" />
     <Compile Include="Infrastructure\DataContext.cs" />
     <Compile Include="Infrastructure\DataInitializer.cs" />
     <Compile Include="Infrastructure\Repository.cs" />
+    <Compile Include="Migrations\201706021120151_InitialCreate.cs" />
+    <Compile Include="Migrations\201706021120151_InitialCreate.Designer.cs">
+      <DependentUpon>201706021120151_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706021131542_Initial.cs" />
+    <Compile Include="Migrations\201706021131542_Initial.Designer.cs">
+      <DependentUpon>201706021131542_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201706021120151_InitialCreate.resx">
+      <DependentUpon>201706021120151_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706021131542_Initial.resx">
+      <DependentUpon>201706021131542_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

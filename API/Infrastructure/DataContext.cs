@@ -7,11 +7,9 @@ namespace API.Infrastructure
     public class DataContext : DbContext
     {
         [Inject]
-        public DataContext() : base("EventTickets")
-        {
-            
-        }
+        public DataContext() : base("EventTickets") { }
 
         public DbSet<Event> Events { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
     }
 }

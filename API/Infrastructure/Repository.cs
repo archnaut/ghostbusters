@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Web.DynamicData;
+using System.Web.DynamicData.ModelProviders;
 using API.Domain;
 using EntityFramework.Extensions;
 
@@ -17,6 +19,18 @@ namespace API.Infrastructure
             _context = context;
         }
 
+        public IEnumerable<T> All<T>() where T : class
+        {
+            return _context.Set<T>();
+        }
+
+        public IEnumerable<TEntity> All<TEntity, TProperty>(Expression<Func<TEntity, TProperty>> include) 
+            where TEntity  : class
+            where TProperty : class
+        {
+            return _context.Set<TEntity>().Include(include);
+        }
+
         public T Single<T>(Expression<Func<T, bool>> predicate) where T : class
         {
             return _context.Set<T>().FirstOrDefault(predicate);
@@ -25,6 +39,16 @@ namespace API.Infrastructure
         public IEnumerable<T> Find<T>(Expression<Func<T, bool>> predicate) where T : class
         {
             return _context.Set<T>().Where(predicate);
+        }
+
+        public IEnumerable<TEntity> Find<TEntity, TProperty>(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, TProperty>>[] includes) where TEntity : class
+        {
+            var query = _context.Set<TEntity>().Where(predicate);
+
+            if (includes != null)
+                query = includes.Aggregate(query, (current, include) => current.Include(include));
+
+            return query;
         }
 
         public void Add<T>(T item) where T : class

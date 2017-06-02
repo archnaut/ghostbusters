@@ -33,15 +33,13 @@ namespace Tests.Acceptance
             var startDate = _parser.Parse(row["Event Start Date"]);
             var endDate = _parser.Parse(row["Event End Date"]);
 
-            _expected = new Event
-            {
-                Id = int.Parse(row["ID"]),
-                Name = row["Name"],
-                OnSaleDate = onSaleDate.ToTime(),
-                DoorsOpenDate = doorsOpenDate.ToTime(),
-                StarteDate = startDate.ToTime(),
-                EndDate = endDate.ToTime()
-            };
+            _expected = new Event (
+                row["Name"],
+                onSaleDate.ToTime(),
+                doorsOpenDate.ToTime(),
+                startDate.ToTime(),
+                endDate.ToTime()
+            );
 
             using (var context = new DataContext())
             {
@@ -73,11 +71,10 @@ namespace Tests.Acceptance
         {
             var actual = JsonConvert.DeserializeObject<Event[]>(_response.Content.ReadAsStringAsync().Result).Single();
 
-            Assert.Equal(_expected.Id, actual.Id);
             Assert.Equal(_expected.Name, actual.Name);
-            Assert.Equal(_expected.OnSaleDate.ToString("s"), actual.OnSaleDate.ToString("s"));
-            Assert.Equal(_expected.StarteDate.ToString("s"), actual.StarteDate.ToString("s"));
-            Assert.Equal(_expected.EndDate.ToString("s"), actual.EndDate.ToString("s"));
+            Assert.Equal(_expected.OnSale.ToString("s"), actual.OnSale.ToString("s"));
+            Assert.Equal(_expected.Start.ToString("s"), actual.Start.ToString("s"));
+            Assert.Equal(_expected.End.ToString("s"), actual.End.ToString("s"));
         }
 
         [BeforeScenario]

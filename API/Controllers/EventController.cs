@@ -1,14 +1,13 @@
 ﻿using System.Linq;
 using System.Web.Http;
 using API.Domain;
-using API.Infrastructure;
 
 namespace API.Controllers
 {
     [RoutePrefix("api")]
     public class EventController : ApiController
     {
-        private IRepository _repository;
+        private readonly IRepository _repository;
 
         public EventController(IRepository repository)
         {
@@ -17,10 +16,16 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("Events")]
-        public IHttpActionResult Get()
+        public IHttpActionResult GetEvents()
         {
-            using (var dataContext = new DataContext())
-                return Ok(dataContext.Events.ToList());
+            return Ok(_repository.All<Event>());
+        }
+
+        [HttpGet]
+        [Route("Tickets/{eventId}")]
+        public IHttpActionResult GetTickets(int eventId)
+        {
+            return Ok(_repository.Find<Ticket>(x => x.Event.Id == eventId).Select(x => new {x.Id, x.Name, x.Price}));
         }
     }
 }

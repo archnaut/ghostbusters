@@ -99,36 +99,12 @@ this.ScenarioSetup(scenarioInfo);
                         "5 days 17 hours from now"});
 #line 8
  testRunner.Given("the following event(s) exist", ((string)(null)), table1, "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Port",
-                        "Method",
-                        "Path"});
-            table2.AddRow(new string[] {
-                        "53735",
-                        "GET",
-                        "api/Events"});
 #line 11
- testRunner.When("I make a  call to", ((string)(null)), table2, "When ");
-#line 14
+ testRunner.When("I make a  call to \"http://localhost:53735/api/Events\" to get events", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 12
  testRunner.Then("the response status code is 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Id",
-                        "Name",
-                        "OnSale",
-                        "DoorsOpen",
-                        "Start",
-                        "End"});
-            table3.AddRow(new string[] {
-                        "1",
-                        "Annual Charity Event",
-                        "30 days ago",
-                        "4 days 13 hours from now",
-                        "5 days 14 hours from now",
-                        "5 days 17 hours from now"});
-#line 15
- testRunner.And("the response body contains the event", ((string)(null)), table3, "And ");
+#line 13
+ testRunner.And("the response body contains the event", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

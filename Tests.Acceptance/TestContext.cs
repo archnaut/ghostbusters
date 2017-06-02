@@ -4,6 +4,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
+using Tests.Acceptance.Infrastructure;
 
 namespace Tests.Acceptance
 {
@@ -19,6 +21,7 @@ namespace Tests.Acceptance
         public static void BeforeTestRun()
         {
             StartExpress();
+            Service.Instance.RegisterValueRetriever(new SpanValueRetriever());
         }
 
         [AfterTestRun()]

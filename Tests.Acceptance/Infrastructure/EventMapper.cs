@@ -27,7 +27,7 @@ namespace Tests.Acceptance.Infrastructure
             };
         }
 
-        public Dictionary<string, string> Map(TableRow row)
+        private Dictionary<string, string> Map(TableRow row)
         {
             return new Dictionary<string, string> {
                 { "Id", row["ID"]},
@@ -38,6 +38,5 @@ namespace Tests.Acceptance.Infrastructure
                 { "End", _parser.Parse(row["Event End Date"]).ToTime().ToString("s")},
             };
         }
-
     }
 }

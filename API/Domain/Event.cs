@@ -7,7 +7,11 @@ namespace API.Domain
         public Event() { }
 
         public Event(string name, DateTime onSale, DateTime doorsOpen, DateTime start, DateTime end)
+            :this(-1, name, onSale, doorsOpen, start, end) { }
+
+        public Event(int id, string name, DateTime onSale, DateTime doorsOpen, DateTime start, DateTime end)
         {
+            Id = id;
             Name = name;
             OnSale = onSale;
             DoorsOpen = doorsOpen;

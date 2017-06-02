@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -14,16 +15,11 @@ namespace Tests.Acceptance
     {
         private HttpResponseMessage _response;
 
-        [When(@"I make a  call to")]
-        public void WhenIMakeACallTo(Table table)
+        [When(@"I make a  call to ""(.*)"" to get events")]
+        public void WhenIMakeACallToToGetEvents(string url)
         {
-            var row = table.Rows[0];
-            var uri = new Uri($"http://localhost:{row["Port"]}/{row["Path"]}");
-
             using (var client = new HttpClient())
-            {
-                _response = client.GetAsync(uri).Result;
-            }
+                _response = client.GetAsync(url).Result;
         }
 
         [Then(@"the response status code is (.*)")]
@@ -33,17 +29,19 @@ namespace Tests.Acceptance
         }
 
         [Then(@"the response body contains the event")]
-        public void ThenTheResponseBodyContainsTheEvent(Table table)
+        public void ThenTheResponseBodyContainsTheEvent()
         {
-            //var mapper = new EventMapper();
-            //var expected = mapper.Map(table.Rows.Single());
-            //var actual = JsonConvert.DeserializeObject<Event[]>(_response.Content.ReadAsStringAsync().Result).Single();
+            var expected = ScenarioContext.Current.Get<IEnumerable<Event>>().Single();
+            var result = _response.Content.ReadAsStringAsync().Result;
+            var content = JsonConvert.DeserializeObject<ExpandoObject[]>(result);
+            dynamic actual = content.Single();
 
-            //Assert.Equal(expected["Id"], actual.Id.ToString());
-            //Assert.Equal(expected["Name"], actual.Name);
-            //Assert.Equal(expected["OnSale"], actual.OnSale.ToString("s"));
-            //Assert.Equal(expected["Start"], actual.Start.ToString("s"));
-            //Assert.Equal(expected["End"], actual.End.ToString("s"));
+            Assert.Equal(expected.Id, actual.Id); 
+            Assert.Equal(expected.Name, actual.Name);
+            Assert.True(actual.OnSale.Subtract(expected.OnSale).TotalSeconds < 1);
+            Assert.True(actual.DoorsOpen.Subtract(expected.DoorsOpen).TotalSeconds < 1);
+            Assert.True(actual.Start.Subtract(expected.Start).TotalSeconds < 1);
+            Assert.True(actual.End.Subtract(expected.End).TotalSeconds < 1);
         }
     }
 }

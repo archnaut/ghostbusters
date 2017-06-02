@@ -22,6 +22,16 @@ namespace Tests.Acceptance.Infrastructure
             _entityData = mapper.Map(table).ToList();
         }
 
+        public void ClearAndAdd(string entityName, IEnumerable<Dictionary<string, string>> dictionaries)
+        {
+            _entityData = new List<EntityData> {
+                new EntityData {
+                    EntityName = entityName,
+                    Objects = dictionaries.ToList()
+                }
+            };
+        }
+
         public List<EntityData> GetEntityDataList()
         {
             return _entityData;

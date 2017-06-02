@@ -2,7 +2,7 @@
 using CherrySeed.Configuration.Exceptions;
 using TechTalk.SpecFlow;
 
-namespace Tests.Acceptance
+namespace Tests.Acceptance.Infrastructure
 {
     public static class CherrySeedExtensionMethods
     {

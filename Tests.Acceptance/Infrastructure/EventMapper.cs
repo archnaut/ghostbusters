@@ -4,7 +4,7 @@ using CherrySeed.EntityDataProvider;
 using Chronic;
 using TechTalk.SpecFlow;
 
-namespace Tests.Acceptance
+namespace Tests.Acceptance.Infrastructure
 {
     internal class EventMapper : IEntityMapper
     {

@@ -4,6 +4,7 @@ using BoDi;
 using CherrySeed.Configuration;
 using CherrySeed.Repositories.Ef;
 using TechTalk.SpecFlow;
+using Tests.Acceptance.Infrastructure;
 
 namespace Tests.Acceptance
 {

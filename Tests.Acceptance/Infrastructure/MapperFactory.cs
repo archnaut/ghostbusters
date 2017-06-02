@@ -1,4 +1,4 @@
-namespace Tests.Acceptance
+namespace Tests.Acceptance.Infrastructure
 {
     internal class MapperFactory
     {

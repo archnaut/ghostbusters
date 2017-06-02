@@ -1,5 +1,6 @@
 ﻿using CherrySeed;
 using TechTalk.SpecFlow;
+using Tests.Acceptance.Infrastructure;
 
 namespace Tests.Acceptance
 {

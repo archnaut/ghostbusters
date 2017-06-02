@@ -3,7 +3,7 @@ using System.Linq;
 using CherrySeed.EntityDataProvider;
 using TechTalk.SpecFlow;
 
-namespace Tests.Acceptance
+namespace Tests.Acceptance.Infrastructure
 {
     public class EventDataProvider : IDataProvider
     {

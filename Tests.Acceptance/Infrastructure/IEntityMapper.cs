@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using CherrySeed.EntityDataProvider;
 using TechTalk.SpecFlow;
 
-namespace Tests.Acceptance
+namespace Tests.Acceptance.Infrastructure
 {
     internal interface IEntityMapper
     {

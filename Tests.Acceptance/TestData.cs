@@ -26,28 +26,6 @@ namespace Tests.Acceptance
             }          
             
             ScenarioContext.Current.Set<IEnumerable<Event>>(events);
-
-            //var events = table
-            //    .CreateSet<EventBuilder>()
-            //    .Select(x => x.Build())
-            //    .Aggregate(
-            //        new List<Dictionary<string, string>>(), 
-            //        (aggregate, item)=> {
-            //            aggregate.Add(
-            //                new Dictionary<string, string> {
-            //                    {"Id", item.Id.ToString()},
-            //                    {"Name", item.Name},
-            //                    {"OnSale", item.OnSale.ToString("O")},
-            //                    {"DoorsOpen", item.DoorsOpen.ToString("O")},
-            //                    {"Start", item.Start.ToString("O")},
-            //                    {"End", item.End.ToString("O")}
-            //                });
-            //            return aggregate;
-            //        });
-
-            //_seeder.Seed("Events", events);
-
-            //ScenarioContext.Current.Set<IEnumerable<Dictionary<string, string>>>(events);
         }
 
         [Given(@"the following tickets exist")]

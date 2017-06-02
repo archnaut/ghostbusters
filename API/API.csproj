@@ -161,7 +161,6 @@
     <Compile Include="Domain\IRepository.cs" />
     <Compile Include="Domain\Ticket.cs" />
     <Compile Include="Infrastructure\DataContext.cs" />
-    <Compile Include="Infrastructure\DataInitializer.cs" />
     <Compile Include="Infrastructure\Repository.cs" />
     <Compile Include="Migrations\201706021120151_InitialCreate.cs" />
     <Compile Include="Migrations\201706021120151_InitialCreate.Designer.cs">

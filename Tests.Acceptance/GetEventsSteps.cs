@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using API.Domain;
 using Newtonsoft.Json;
@@ -13,26 +12,19 @@ namespace Tests.Acceptance
     [Binding]
     public class GetEventsSteps
     {
-        private HttpResponseMessage _response;
+        private readonly ScenarioContext _context;
 
-        [When(@"I make a  call to ""(.*)"" to get events")]
-        public void WhenIMakeACallToToGetEvents(string url)
+        public GetEventsSteps(ScenarioContext context)
         {
-            using (var client = new HttpClient())
-                _response = client.GetAsync(url).Result;
+            _context = context;
         }
 
-        [Then(@"the response status code is (.*)")]
-        public void ThenTheResponseStatusCodeIs(int statusCode)
-        {
-            Assert.Equal((HttpStatusCode) statusCode, _response.StatusCode);
-        }
-
-        [Then(@"the response body contains the event")]
+        [Then(@"the response contains the event")]
         public void ThenTheResponseBodyContainsTheEvent()
         {
-            var expected = ScenarioContext.Current.Get<IEnumerable<Event>>().Single();
-            var result = _response.Content.ReadAsStringAsync().Result;
+            var response = _context.Get<HttpResponseMessage>();
+            var expected = _context.Get<IEnumerable<Event>>().Single();
+            var result = response.Content.ReadAsStringAsync().Result;
             var content = JsonConvert.DeserializeObject<ExpandoObject[]>(result);
             dynamic actual = content.Single();
 
@@ -42,6 +34,16 @@ namespace Tests.Acceptance
             Assert.True(actual.DoorsOpen.Subtract(expected.DoorsOpen).TotalSeconds < 1);
             Assert.True(actual.Start.Subtract(expected.Start).TotalSeconds < 1);
             Assert.True(actual.End.Subtract(expected.End).TotalSeconds < 1);
+        }
+
+        [Then(@"the response should not contain any events")]
+        public void ThenTheResponseShouldNotContainAnyEvents()
+        {
+            var response = _context.Get<HttpResponseMessage>();
+            var result = response.Content.ReadAsStringAsync().Result;
+            var content = JsonConvert.DeserializeObject<ExpandoObject[]>(result);
+
+            Assert.Equal(0, content.Length);
         }
     }
 }

@@ -15,5 +15,7 @@ namespace API.Domain
         void Remove<T>(Expression<Func<T, bool>> predicate) where T : class;
         void Remove<T>(T item) where T : class;
         void Update<T>(T item) where T : class;
+
+        IUnitOfWork NewUnitOfWork();
     }
 }

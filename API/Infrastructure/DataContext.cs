@@ -11,5 +11,13 @@ namespace API.Infrastructure
 
         public DbSet<Event> Events { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .Entity<Ticket>()
+                .Property(x => x.QuantityAvailable)
+                .IsConcurrencyToken();
+        }
     }
 }

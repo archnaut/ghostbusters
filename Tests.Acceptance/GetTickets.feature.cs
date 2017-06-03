@@ -17,15 +17,15 @@ namespace Tests.Acceptance
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class GetEventsFeature : Xunit.IClassFixture<GetEventsFeature.FixtureData>, System.IDisposable
+    public partial class GetTicketsFeature : Xunit.IClassFixture<GetTicketsFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "GetEvents.feature"
+#line 1 "GetTickets.feature"
 #line hidden
         
-        public GetEventsFeature()
+        public GetTicketsFeature()
         {
             this.TestInitialize();
         }
@@ -33,8 +33,8 @@ namespace Tests.Acceptance
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "GetEvents", "\tIn order to browse upcoming events\r\n\tAs api consumer \r\n\tI want to be given avail" +
-                    "able events", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "GetTickets", "\tIn order to see tickets for an events\r\n\tAs api consumer \r\n\tI want to be retrieve" +
+                    " tickets by event ID", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -63,7 +63,7 @@ namespace Tests.Acceptance
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void SetFixture(GetEventsFeature.FixtureData fixtureData)
+        public virtual void SetFixture(GetTicketsFeature.FixtureData fixtureData)
         {
         }
         
@@ -72,14 +72,14 @@ namespace Tests.Acceptance
             this.ScenarioTearDown();
         }
         
-        [Xunit.FactAttribute(DisplayName="Get Upcoming Event")]
-        [Xunit.TraitAttribute("FeatureTitle", "GetEvents")]
-        [Xunit.TraitAttribute("Description", "Get Upcoming Event")]
-        [Xunit.TraitAttribute("Category", "mytag")]
-        public virtual void GetUpcomingEvent()
+        [Xunit.FactAttribute(DisplayName="Current event with tickets")]
+        [Xunit.TraitAttribute("FeatureTitle", "GetTickets")]
+        [Xunit.TraitAttribute("Description", "Current event with tickets")]
+        [Xunit.TraitAttribute("Category", "Ticket")]
+        public virtual void CurrentEventWithTickets()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get Upcoming Event", new string[] {
-                        "mytag"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Current event with tickets", new string[] {
+                        "Ticket"});
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line hidden
@@ -99,49 +99,45 @@ this.ScenarioSetup(scenarioInfo);
                         "5 days 17 hours from now"});
 #line 8
  testRunner.Given("the following event(s) exist", ((string)(null)), table1, "Given ");
-#line 11
- testRunner.When("I make a call to \"http://localhost:53735/api/Events\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 12
- testRunner.Then("the response status code is 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 13
- testRunner.And("the content type is \"application/json\" and charset \"utf-8\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 14
- testRunner.And("the response contains the event", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [Xunit.FactAttribute(DisplayName="No Current Events")]
-        [Xunit.TraitAttribute("FeatureTitle", "GetEvents")]
-        [Xunit.TraitAttribute("Description", "No Current Events")]
-        public virtual void NoCurrentEvents()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No Current Events", ((string[])(null)));
-#line 16
-this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Event ID",
                         "Name",
-                        "On Sale Date",
-                        "Doors Open Date",
-                        "Event Start Date",
-                        "Event End Date"});
+                        "Price",
+                        "Quantity Available"});
             table2.AddRow(new string[] {
-                        "Past Charity Event",
-                        "60 days ago",
-                        "26 days ago",
-                        "24 days ago",
-                        "23 days 21 hour ago"});
-#line 17
- testRunner.Given("the following event(s) exist", ((string)(null)), table2, "Given ");
-#line 20
- testRunner.When("I make a call to \"http://localhost:53735/api/Events\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 21
+                        "1",
+                        "General Adminission",
+                        "10.00",
+                        "500"});
+            table2.AddRow(new string[] {
+                        "1",
+                        "VIP",
+                        "30.00",
+                        "100"});
+#line 11
+ testRunner.And("the following tickets are available", ((string)(null)), table2, "And ");
+#line 15
+ testRunner.When("I make a call to \"http://localhost:53735/api/Tickets/1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 16
  testRunner.Then("the response status code is 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 22
+#line 17
  testRunner.And("the content type is \"application/json\" and charset \"utf-8\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 23
- testRunner.And("the response should not contain any events", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ID",
+                        "Name",
+                        "Price"});
+            table3.AddRow(new string[] {
+                        "1",
+                        "General Adminission",
+                        "10.00"});
+            table3.AddRow(new string[] {
+                        "2",
+                        "VIP",
+                        "30.00"});
+#line 18
+ testRunner.And("the response should include the following tickets", ((string)(null)), table3, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -153,12 +149,12 @@ this.ScenarioSetup(scenarioInfo);
             
             public FixtureData()
             {
-                GetEventsFeature.FeatureSetup();
+                GetTicketsFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                GetEventsFeature.FeatureTearDown();
+                GetTicketsFeature.FeatureTearDown();
             }
         }
     }

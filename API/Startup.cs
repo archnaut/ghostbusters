@@ -3,9 +3,11 @@ using System.Reflection;
 using System.Web.Http;
 using API.Domain;
 using API.Infrastructure;
+using API.Presentaion;
 using JetBrains.Annotations;
 using Microsoft.Owin;
 using Ninject;
+using Ninject.Parameters;
 using Ninject.Web.Common;
 using Ninject.Web.Common.OwinHost;
 using Ninject.Web.WebApi.OwinHost;
@@ -36,6 +38,8 @@ namespace API
 
             kernel.Bind<DbContext>().To<DataContext>().InRequestScope();
             kernel.Bind<IRepository>().To<Repository>().InRequestScope();
+            kernel.Bind<EventPresenter>().ToSelf().InRequestScope();
+            kernel.Bind<ITaxService>().To<TaxService>().WithConstructorArgument(AppSettings.TaxRate);
 
             return kernel;
         }

@@ -1,31 +1,37 @@
-﻿using System.Linq;
-using System.Web.Http;
-using API.Domain;
+﻿using System.Web.Http;
+using API.Presentaion;
 
 namespace API.Controllers
 {
     [RoutePrefix("api")]
     public class EventController : ApiController
     {
-        private readonly IRepository _repository;
+        private readonly EventPresenter _presenter;
 
-        public EventController(IRepository repository)
+        public EventController(EventPresenter presenter)
         {
-            _repository = repository;
+            _presenter = presenter;
         }
 
         [HttpGet]
         [Route("Events")]
         public IHttpActionResult GetEvents()
         {
-            return Ok(_repository.All<Event>());
+            return Ok(_presenter.GetEvents());
         }
 
         [HttpGet]
         [Route("Tickets/{eventId}")]
         public IHttpActionResult GetTickets(int eventId)
         {
-            return Ok(_repository.Find<Ticket>(x => x.Event.Id == eventId).Select(x => new {x.Id, x.Name, x.Price}));
+            return Ok(_presenter.GetTickets(eventId));
+        }
+
+        [HttpPost]
+        [Route("Orders")]
+        public IHttpActionResult PostPurchaseOrder(PurchaseOrder order)
+        {
+            return Ok(_presenter.Submit(order));
         }
     }
 }

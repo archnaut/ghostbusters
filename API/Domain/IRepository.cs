@@ -6,7 +6,7 @@ namespace API.Domain
 {
     public interface IRepository
     {
-        void Add<T>(T item) where T : class;
+        void AddOrUpdate<T>(T item) where T : class;
         IEnumerable<T> All<T>() where T : class;
         T Single<T>(Expression<Func<T, bool>> predicate) where T : class;
         IEnumerable<T> Find<T>(Expression<Func<T, bool>>  predicate) where T : class;

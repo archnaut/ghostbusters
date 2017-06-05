@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 using API.Domain;
@@ -49,9 +50,9 @@ namespace API.Infrastructure
             return query;
         }
 
-        public void Add<T>(T item) where T : class
+        public void AddOrUpdate<T>(T item) where T : class
         {
-            _context.Set<T>().Add(item);
+            _context.Set<T>().AddOrUpdate(item);
         }
 
         public void Remove<T>(Expression<Func<T, bool>> predicate) where T : class
@@ -91,19 +92,28 @@ namespace API.Infrastructure
         private class UnitOfWork : IUnitOfWork
         {
             private readonly DbContext _context;
+            private readonly DbContextTransaction _transaction;
 
             public UnitOfWork(DbContext context)
             {
                 _context = context;
+                _transaction = context.Database.BeginTransaction();
             }
 
             public void Commit()
             {
                 _context.SaveChanges();
+                _transaction.Commit();
+            }
+
+            public void Rollback()
+            {
+               _transaction.Rollback(); 
             }
 
             public void Dispose()
             {
+                _transaction.Dispose();
             }
         }
     }

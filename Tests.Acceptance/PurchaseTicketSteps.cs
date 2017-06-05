@@ -26,7 +26,7 @@ namespace Tests.Acceptance
         public void ThenIShouldReceiveTheFollowingReceipt(dynamic expected)
         {
             var expectedPurchaseDate = _parser.Parse(expected.PurchaseDate).ToTime().Date;
-            var response = _context.Get<HttpResponseMessage>("OrderResponse");
+            var response = _context.Get<HttpResponseMessage>();
 
             dynamic actual = JsonConvert.DeserializeObject<ExpandoObject>(response.Content.ReadAsStringAsync().Result);
             _context.Set(actual, "OrderResponseContent");
@@ -55,6 +55,16 @@ namespace Tests.Acceptance
 
                 Assert.Equal(quantityAvailable, actual.QuantityAvailable);
             }
+        }
+
+        [Then(@"I should receive the message ""(.*)""")]
+        public void ThenIShouldReceiveTheMessage(string expected)
+        {
+            var response = _context.Get<HttpResponseMessage>();
+
+            var actual = JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result);
+
+            Assert.Equal(expected, actual);
         }
     }
 }

@@ -30,10 +30,10 @@ namespace Tests.Acceptance
 
             Assert.Equal(expected.Id, actual.Id); 
             Assert.Equal(expected.Name, actual.Name);
-            Assert.True(actual.OnSale.Subtract(expected.OnSale).TotalSeconds < 1);
-            Assert.True(actual.DoorsOpen.Subtract(expected.DoorsOpen).TotalSeconds < 1);
-            Assert.True(actual.Start.Subtract(expected.Start).TotalSeconds < 1);
-            Assert.True(actual.End.Subtract(expected.End).TotalSeconds < 1);
+            Assert.True(actual.OnSaleDate.Subtract(expected.OnSale).TotalSeconds < 1);
+            Assert.True(actual.DoorOpenDate.Subtract(expected.DoorOpen).TotalSeconds < 1);
+            Assert.True(actual.EventStartDate.Subtract(expected.Start).TotalSeconds < 1);
+            Assert.True(actual.EventEndDate.Subtract(expected.End).TotalSeconds < 1);
         }
 
         [Then(@"the response should not contain any events")]

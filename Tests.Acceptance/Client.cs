@@ -58,7 +58,7 @@ namespace Tests.Acceptance
                 "application/json");
 
             using (var client = new HttpClient())
-                _context.Set(client.PostAsync(request.Url, content).Result, "OrderResponse");
+                _context.Set(client.PostAsync(request.Url, content).Result);
         }
     }
 }

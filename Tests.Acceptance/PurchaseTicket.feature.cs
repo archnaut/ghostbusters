@@ -92,7 +92,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Event End Date"});
             table1.AddRow(new string[] {
                         "1",
-                        "VB.NET Condolences Dinner",
+                        "Current Event",
                         "30 days ago",
                         "4 days 13 hours from now",
                         "5 days 14 hours from now",
@@ -131,7 +131,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Last Name",
                         "Cowfarmer"});
             table3.AddRow(new string[] {
-                        "Card Number",
+                        "Credit Card Number",
                         "0000-0000-0000-0000"});
             table3.AddRow(new string[] {
                         "Security Code",
@@ -171,7 +171,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Today"});
             table5.AddRow(new string[] {
                         "Amount Paid",
-                        "10.98"});
+                        "10.975"});
 #line 27
  testRunner.Then("I should receive the following receipt", ((string)(null)), table5, "Then ");
 #line hidden
@@ -186,11 +186,191 @@ this.ScenarioSetup(scenarioInfo);
                         "General Admission",
                         "1",
                         "10",
-                        "0.98"});
+                        "0.975"});
 #line 34
  testRunner.And("receipt includes the following line items", ((string)(null)), table6, "And ");
 #line 37
  testRunner.And("the quantity available of ticket with ID 1 should be 499", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.FactAttribute(DisplayName="Past Event")]
+        [Xunit.TraitAttribute("FeatureTitle", "PurchaseTicket")]
+        [Xunit.TraitAttribute("Description", "Past Event")]
+        [Xunit.TraitAttribute("Category", "mytag")]
+        public virtual void PastEvent()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Past Event", new string[] {
+                        "mytag"});
+#line 40
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ID",
+                        "Name",
+                        "On Sale Date",
+                        "Doors Open Date",
+                        "Event Start Date",
+                        "Event End Date"});
+            table7.AddRow(new string[] {
+                        "1",
+                        "Past Event",
+                        "30 days ago",
+                        "5 days 17 hours ago",
+                        "5 days 14 hours ago",
+                        "4 days 13 hours ago"});
+#line 41
+ testRunner.Given("the following event(s) exist", ((string)(null)), table7, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Event ID",
+                        "Name",
+                        "Price",
+                        "Quantity Available"});
+            table8.AddRow(new string[] {
+                        "1",
+                        "General Admission",
+                        "10",
+                        "500"});
+            table8.AddRow(new string[] {
+                        "1",
+                        "VIP",
+                        "30",
+                        "100"});
+#line 44
+ testRunner.And("the following tickets are available", ((string)(null)), table8, "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table9.AddRow(new string[] {
+                        "Event ID",
+                        "1"});
+            table9.AddRow(new string[] {
+                        "First Name",
+                        "Billy-Ray"});
+            table9.AddRow(new string[] {
+                        "Last Name",
+                        "Cowfarmer"});
+            table9.AddRow(new string[] {
+                        "Credit Card Number",
+                        "0000-0000-0000-0000"});
+            table9.AddRow(new string[] {
+                        "Security Code",
+                        "000"});
+            table9.AddRow(new string[] {
+                        "Expiration Month",
+                        "01"});
+            table9.AddRow(new string[] {
+                        "Expiration Year",
+                        "2018"});
+#line 48
+ testRunner.When("I submit the following order to \"http://localhost:53735/api/Orders\"", ((string)(null)), table9, "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Ticket ID",
+                        "Quantity"});
+            table10.AddRow(new string[] {
+                        "1",
+                        "1"});
+#line 57
+ testRunner.And("the order includes the following line items", ((string)(null)), table10, "And ");
+#line 60
+ testRunner.Then("the response status code is 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 61
+ testRunner.And("I should receive the message \"Event Passed: Cannot purchase tickets for events th" +
+                    "at have already passed.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.FactAttribute(DisplayName="Sold Out Event")]
+        [Xunit.TraitAttribute("FeatureTitle", "PurchaseTicket")]
+        [Xunit.TraitAttribute("Description", "Sold Out Event")]
+        [Xunit.TraitAttribute("Category", "mytag")]
+        public virtual void SoldOutEvent()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Sold Out Event", new string[] {
+                        "mytag"});
+#line 64
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ID",
+                        "Name",
+                        "On Sale Date",
+                        "Doors Open Date",
+                        "Event Start Date",
+                        "Event End Date"});
+            table11.AddRow(new string[] {
+                        "1",
+                        "Current Event",
+                        "30 days ago",
+                        "4 days 13 hours from now",
+                        "5 days 14 hours from now",
+                        "5 days 17 hours from now"});
+#line 65
+ testRunner.Given("the following event(s) exist", ((string)(null)), table11, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Event ID",
+                        "Name",
+                        "Price",
+                        "Quantity Available"});
+            table12.AddRow(new string[] {
+                        "1",
+                        "General Admission",
+                        "10",
+                        "0"});
+            table12.AddRow(new string[] {
+                        "1",
+                        "VIP",
+                        "30",
+                        "100"});
+#line 68
+ testRunner.And("the following tickets are available", ((string)(null)), table12, "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table13.AddRow(new string[] {
+                        "Event ID",
+                        "1"});
+            table13.AddRow(new string[] {
+                        "First Name",
+                        "Billy-Ray"});
+            table13.AddRow(new string[] {
+                        "Last Name",
+                        "Cowfarmer"});
+            table13.AddRow(new string[] {
+                        "Credit Card Number",
+                        "0000-0000-0000-0000"});
+            table13.AddRow(new string[] {
+                        "Security Code",
+                        "000"});
+            table13.AddRow(new string[] {
+                        "Expiration Month",
+                        "01"});
+            table13.AddRow(new string[] {
+                        "Expiration Year",
+                        "2018"});
+#line 72
+ testRunner.When("I submit the following order to \"http://localhost:53735/api/Orders\"", ((string)(null)), table13, "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Ticket ID",
+                        "Quantity"});
+            table14.AddRow(new string[] {
+                        "1",
+                        "1"});
+#line 81
+ testRunner.And("the order includes the following line items", ((string)(null)), table14, "And ");
+#line 84
+ testRunner.Then("the response status code is 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 85
+ testRunner.And("I should receive the message \"Sold Out: Insufficient tickets available to satisfy" +
+                    " your request.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

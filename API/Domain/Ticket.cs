@@ -26,26 +26,26 @@ namespace API.Domain
 
         public int Id { get; private set; }
         public int EventId { get; private set; }
+        public virtual Event Event { get; private set; }
         public string Name { get; private set; }
         public decimal Price { get; private set; }
         public int QuantityAvailable { get; private set; }
 
-        public IEnumerable<TicketOrder> Purchase(ITaxService taxService, int quantity)
+        public IEnumerable<OrderItem> Purchase(ITaxService taxService, int quantity)
         {
-            if (quantity < 0 || quantity > 8) {
+            if (quantity < 1 || quantity > 8) {
                throw new ArgumentOutOfRangeException(nameof(quantity), "Purchases must be for 1 to 8 tickets."); 
             }
 
             if (QuantityAvailable < quantity) {
-               throw new Exception($"Insufficient quantity available to fulfill order."); 
+               throw new SoldOutException(); 
             }
 
-            var salesTax = taxService.TaxFor(Price);
             QuantityAvailable -= quantity;
 
             return Enumerable
                 .Range(1, quantity)
-                .Select(x => new TicketOrder(this, string.Empty, salesTax));
+                .Select(x => new OrderItem(this, taxService.TaxFor(Price)));
         }
     }
 }
